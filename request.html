@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;margin:0}
+.sidebar{width:200px;background:#007bff;height:100vh;position:fixed;color:#fff;padding:20px}
+.sidebar a{display:block;color:#fff;margin:10px 0;text-decoration:none}
+.main{margin-left:220px;padding:20px}
+input,textarea,button{width:100%;margin:10px 0;padding:10px}
+button{background:#007bff;color:#fff;border:none}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h3>Menu</h3>
+<a href="request.html">Request</a>
+<a href="status.html">Status</a>
+</div>
+<div class="main">
+<h2>Request Access</h2>
+<form id="form">
+<input id="name" placeholder="Name" required>
+<input id="company" placeholder="Company">
+<input id="department" placeholder="Department">
+<textarea id="purpose" placeholder="Purpose"></textarea>
+<input type="time" id="loginTime">
+<input type="number" id="duration">
+<input type="date" id="date">
+<button>Submit</button>
+</form>
+</div>
+
+<script>
+document.getElementById('form').onsubmit=e=>{
+e.preventDefault();
+const req={id:Date.now(),name:name.value,company:company.value,department:department.value,purpose:purpose.value,loginTime:loginTime.value,duration:duration.value,date:date.value,status:'Pending'};
+let data=JSON.parse(localStorage.getItem('requests'))||[];
+data.push(req);
+localStorage.setItem('requests',JSON.stringify(data));
+window.location='status.html';
+};
+</script>
+</body>
+</html>
+

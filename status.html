@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;margin:0}
+.sidebar{width:200px;background:#007bff;height:100vh;position:fixed;color:#fff;padding:20px}
+.main{margin-left:220px;padding:20px}
+.card{background:#fff;padding:15px;margin:10px 0;border-radius:8px}
+.approved{color:green}
+.rejected{color:red}
+.pending{color:orange}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h3>Menu</h3>
+<a href="request.html">Request</a>
+<a href="status.html">Status</a>
+</div>
+<div class="main">
+<h2>Status</h2>
+<div id="status"></div>
+</div>
+
+<script>
+window.addEventListener('storage',load);
+
+function load(){
+let data=JSON.parse(localStorage.getItem('requests'))||[];
+const container=document.getElementById('status');
+container.innerHTML='';
+
+data.slice().reverse().forEach(r=>{
+let cls='pending';
+if(r.status==='Approved') cls='approved';
+if(r.status==='Rejected') cls='rejected';
+
+let div=document.createElement('div');
+div.className='card';
+div.innerHTML=`
+<b>${r.name}</b><br>
+<span class='${cls}'>${r.status}</span>
+`;
+container.appendChild(div);
+});
+}
+
+load();
+</script>
+</body>
+</html>
