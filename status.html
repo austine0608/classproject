@@ -4,19 +4,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body{font-family:Arial;margin:0}
-.sidebar{width:200px;background:#007bff;height:100vh;position:fixed;color:#fff;padding:20px}
+.sidebar{width:200px;background:#343a40;height:100vh;position:fixed;color:#fff;padding:20px}
 .main{margin-left:220px;padding:20px}
 .card{background:#fff;padding:15px;margin:10px 0;border-radius:8px}
 .approved{color:green}
 .rejected{color:red}
 .pending{color:orange}
+nav{background-color:white;color:black;text-align:left;border-radius:10px;box-shadow:7px 7px 7px 7px black;}
+ul{list-style-type:none;display:inline-flex;}
+li{width:100px;margin:5px;padding:5px;}
+a{text-decoration:none; color:black;}
 </style>
+<nav>
+    <ul>
+        <!-- <li><a href="index.html">Home</a></li> -->
+        <!-- <li><a href="admin.html">Admin</a></li> -->
+        <!-- <li><a href="" style="font-size:20px">Rite Foods</a></li> -->
+        <li><a href="request.html">Request</a></li>
+        <li><a href="status.html">Status</a></li>
+    </ul>
+</nav>
 </head>
 <body>
 <div class="sidebar">
 <h3>Menu</h3>
-<a href="request.html">Request</a>
-<a href="status.html">Status</a>
+<a href="request.html" style="color:white;">Request</a>
+<a href="status.html" style="color:white;">Status</a>
 </div>
 <div class="main">
 <h2>Status</h2>
@@ -24,29 +37,47 @@ body{font-family:Arial;margin:0}
 </div>
 
 <script>
-window.addEventListener('storage',load);
+window.addEventListener('storage', load);
 
 function load(){
-let data=JSON.parse(localStorage.getItem('requests'))||[];
-const container=document.getElementById('status');
-container.innerHTML='';
+    let data = JSON.parse(localStorage.getItem('requests')) || [];
+    const container = document.getElementById('status');
 
-data.slice().reverse().forEach(r=>{
-let cls='pending';
-if(r.status==='Approved') cls='approved';
-if(r.status==='Rejected') cls='rejected';
+    // Clear old UI
+    container.innerHTML = '';
 
-let div=document.createElement('div');
-div.className='card';
-div.innerHTML=`
-<b>${r.name}</b><br>
-<span class='${cls}'>${r.status}</span>
-`;
-container.appendChild(div);
-});
+    // ✅ Get ONLY the latest request
+    if (data.length === 0) {
+        container.innerHTML = "<p>No notifications yet</p>";
+        return;
+    }
+
+    let r = data[data.length - 1]; // latest item
+
+    let cls = 'pending';
+    if (r.status === 'Approved') cls = 'approved';
+    if (r.status === 'Rejected') cls = 'rejected';
+
+    let div = document.createElement('div');
+    div.className = 'card';
+
+    div.innerHTML = `
+        <b>Name:</b> ${r.name || 'Unknown'} <br>
+        <b>Purpose:</b> ${r.purpose || 'N/A'} <br>
+        <b>Date:</b> ${r.date || 'N/A'} <br>
+        <b>Time:</b> ${r.loginTime || 'N/A'} <br>
+        <b>Status:</b> <span class='${cls}'>${r.status}</span>
+    `;
+
+    container.appendChild(div);
 }
+
+// Auto-refresh every 3 seconds
+setInterval(load, 3000);
 
 load();
 </script>
 </body>
 </html>
+
+

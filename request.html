@@ -4,12 +4,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body{font-family:Arial;margin:0}
-.sidebar{width:200px;background:#007bff;height:100vh;position:fixed;color:#fff;padding:20px}
+.sidebar{width:100px;background:#343a40;height:100vh;position:fixed;color:#fff;padding:20px}
 .sidebar a{display:block;color:#fff;margin:10px 0;text-decoration:none}
-.main{margin-left:220px;padding:20px}
+.main{margin-left:120px;padding:20px}
 input,textarea,button{width:100%;margin:10px 0;padding:10px}
 button{background:#007bff;color:#fff;border:none}
+nav{background-color:white;color:black;text-align:left;border-radius:10px;box-shadow:7px 7px 7px 7px black;}
+ul{list-style-type:none;display:inline-flex;}
+li{width:100px;margin:5px;padding:5px;}
+a{text-decoration:none; color:black;}
 </style>
+<nav>
+    <ul>
+        <!-- <li><a href="index.html">Home</a></li>
+        <li><a href="admin.html">Admin</a></li> -->
+       <!-- <li><a href="" style="font-size:20px">Rite Foods</a></li> -->
+        <li><a href="request.html">Request</a></li>
+        <li><a href="status.html">Status</a></li>
+    </ul>
+</nav>
 </head>
 <body>
 <div class="sidebar">
@@ -27,18 +40,38 @@ button{background:#007bff;color:#fff;border:none}
 <input type="time" id="loginTime">
 <input type="number" id="duration">
 <input type="date" id="date">
-<button>Submit</button>
+<a href="status.html"><button>Submit</button></a>
 </form>
 </div>
 
 <script>
-document.getElementById('form').onsubmit=e=>{
-e.preventDefault();
-const req={id:Date.now(),name:name.value,company:company.value,department:department.value,purpose:purpose.value,loginTime:loginTime.value,duration:duration.value,date:date.value,status:'Pending'};
-let data=JSON.parse(localStorage.getItem('requests'))||[];
-data.push(req);
-localStorage.setItem('requests',JSON.stringify(data));
-window.location='status.html';
+document.getElementById('form').onsubmit = (e) => {
+    e.preventDefault();
+
+    // Get values from inputs
+    const req = {
+        id: Date.now(),
+        name: document.getElementById('name').value.trim(),
+        company: document.getElementById('company').value.trim(),
+        department: document.getElementById('department').value.trim(),
+        purpose: document.getElementById('purpose').value.trim(),
+        loginTime: document.getElementById('loginTime').value,
+        duration: document.getElementById('duration').value,
+        date: document.getElementById('date').value,
+        status: 'Pending'
+    };
+
+    // Get existing data
+    let data = JSON.parse(localStorage.getItem('requests')) || [];
+
+    // Add new request
+    data.push(req);
+
+    // Save back to localStorage
+    localStorage.setItem('requests', JSON.stringify(data));
+
+    // Redirect
+    window.location = 'status.html';
 };
 </script>
 </body>

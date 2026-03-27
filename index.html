@@ -6,22 +6,39 @@
 <title>Login</title>
 <style>
 body{font-family:Arial;margin:0;background:#f4f6f9}
-.container{max-width:400px;margin:100px auto;background:#fff;padding:20px;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,0.1)}
+.container{width:700px; }
 input,button{width:100%;padding:10px;margin:10px 0}
-button{background:#007bff;color:#fff;border:none}
+button{background:#343a40;color:#fff;border:none}
+nav{background-color:white;color:black;text-align:left;border-radius:10px;box-shadow:7px 7px 7px 7px black;}
+ul{list-style-type:none;display:inline-flex;}
+li{width:100px;margin:5px;padding:5px;}
+a{text-decoration:none; color:black;}
 </style>
+<nav>
+    <ul>
+        <!-- <li><a href="index.html">Home</a></li>
+        <li><a href="admin.html">Admin</a></li>
+        <li><a href="request.html">Request</a></li>
+        <li><a href="status.html">Status</a></li> -->
+        <li><a href="">Rite Foods</a></li>
+    </ul>
+</nav>
 </head>
 <body>
-<div class="container">
-<h2>Login</h2>
-<input id="username" placeholder="Username">
-<input id="password" type="password" placeholder="Password">
-<select id="role">
-<option value="user">User</option>
-<option value="admin">Admin</option>
-</select>
-<button onclick="login()">Login</button>
-</div>
+<center>
+    <div class="container"><br><br>
+        <h2>Rite Foods</h2>
+        <!-- <input id="username" placeholder="Username">
+        <input id="password" type="password" placeholder="Password">
+        <select id="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+        </select> -->
+        <input type="text" id="username" placeholder="Username"><br><hr>
+        <input type="text" id="password" placeholder="Password"><br><hr>
+        <a href="request.html"><button onclick="login()">Login</button></a><br><hr>
+    </div>
+</center>
 
 <script>
 function login(){
